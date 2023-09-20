@@ -2,7 +2,7 @@
 using EcoPower_Logistics.Repository;
 using System.Linq.Expressions;
 
-namespace EcoPower_Logistics.Data.Repositories
+namespace EcoPower_Logistics.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
@@ -23,6 +23,11 @@ namespace EcoPower_Logistics.Data.Repositories
             {
                 throw new Exception($"Couldn't retrieve entities: {ex.Message}");
             }
+        }
+
+        public T GetById(int id)
+        {
+            return _context.Set<T>().Find(id);
         }
 
         public void Add(T entity)
