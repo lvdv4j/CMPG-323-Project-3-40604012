@@ -25,7 +25,7 @@ namespace EcoPower_Logistics.Repository
             }
         }
 
-        public T GetById(int id)
+        public T GetById(short id)
         {
             return _context.Set<T>().Find(id);
         }
