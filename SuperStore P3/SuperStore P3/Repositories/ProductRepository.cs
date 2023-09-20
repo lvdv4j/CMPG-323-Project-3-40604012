@@ -7,52 +7,35 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EcoPower_Logistics.Repository
 {
-    public class ProductRepository
+    public class ProductRepository : GenericRepository<Product>, IProductRepository
     {
-        private readonly SuperStoreContext _context;
-
-        public ProductRepository(SuperStoreContext context)
+        public ProductRepository(SuperStoreContext context) : base(context)
         {
-            _context = context;
         }
 
-        public IEnumerable<Product> GetAll()
+        public Product GetProductById(short? id)
         {
-            return _context.Products.ToList();
+            return GetById(id.Value);
         }
 
-        public Product GetById(int id)
+        public IEnumerable<Product> GetAllProducts()
         {
-            return _context.Products.FirstOrDefault(p => p.ProductId == id);
+            return GetAll().ToList();
         }
 
-        public void Create(Product product)
+        public void AddProduct(Product entity)
         {
-            _context.Products.Add(product);
-            _context.SaveChanges();
+            Add(entity);
         }
 
-        public void Update(Product product)
+        public void UpdateProduct(Product entity)
         {
-            _context.Products.Update(product);
-            _context.SaveChanges();
+            Update(entity);
         }
 
-        public void Delete(int id)
+        public void RemoveProduct(Product entity)
         {
-            var product = _context.Products.FirstOrDefault(p => p.ProductId == id);
-
-            if (product != null)
-            {
-                _context.Products.Remove(product);
-                _context.SaveChanges();
-                //TODO: ADD ERROR HANDLING FOR FOREIGN KEY CONSTRAINTS
-            }
-        }
-
-        public bool Exists(int id)
-        {
-            return _context.Products.Any(p => p.ProductId == id);
+            Remove(entity);
         }
     }
 }
