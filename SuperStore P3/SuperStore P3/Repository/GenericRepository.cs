@@ -1,7 +1,8 @@
 ﻿using Data;
+using EcoPower_Logistics.Repository;
 using System.Linq.Expressions;
 
-namespace EcoPower_Logistics.Repository
+namespace EcoPower_Logistics.Data.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
@@ -12,34 +13,63 @@ namespace EcoPower_Logistics.Repository
             _context = context;
         }
 
-        public void Add(T entity)
-        {
-            _context.Set<T>().Add(entity);
-        }
-        public void AddRange(IEnumerable<T> entities)
-        {
-            _context.Set<T>().AddRange(entities);
-        }
-        public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
-        {
-            return _context.Set<T>().Where(expression);
-        }
         public IEnumerable<T> GetAll()
         {
-            return _context.Set<T>().ToList();
-        }
-        public T GetById(int id)
-        {
-            return _context.Set<T>().Find(id);
-        }
-        public void Remove(T entity)
-        {
-            _context.Set<T>().Remove(entity);
-        }
-        public void RemoveRange(IEnumerable<T> entities)
-        {
-            _context.Set<T>().RemoveRange(entities);
+            try
+            {
+                return _context.Set<T>();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Couldn't retrieve entities: {ex.Message}");
+            }
         }
 
+        public void Add(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException($"{nameof(Add)} entity must not be null");
+            }
+            try
+            {
+                _context.Add(entity);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{nameof(entity)} could not be saved: {ex.Message}");
+            }
+        }
+
+        public void Update(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException($"{nameof(Update)} entity cannot be null");
+            }
+            try
+            {
+                _context.Update(entity);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{nameof(entity)} could not be updated {ex.Message}");
+            }
+        }
+
+        public void Remove(T entity)
+        {
+            try
+            {
+                _context.Remove(entity);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Could not remove entity: {ex.Message}");
+            }
+        }
     }
 }

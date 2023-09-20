@@ -20,9 +20,11 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<ProductRepository>();
-builder.Services.AddScoped<CustomerRepository>();
-builder.Services.AddScoped<OrdersRepository>();
+builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
+
+//builder.Services.AddScoped<CustomerRepository>();
+//builder.Services.AddScoped<OrdersRepository>();
 
 var app = builder.Build();
 

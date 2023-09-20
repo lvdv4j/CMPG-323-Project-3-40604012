@@ -15,9 +15,9 @@ namespace Controllers
     [Authorize]
     public class CustomersController : Controller
     {
-        private readonly CustomerRepository _customerRepository;
+        private readonly ICustomerRepository _customerRepository;
 
-        public CustomersController(CustomerRepository customerRepository)
+        public CustomersController(ICustomerRepository customerRepository)
         {
             _customerRepository = customerRepository;
         }
@@ -56,12 +56,13 @@ namespace Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Customer customer)
         {
-            if (ModelState.IsValid)
-            {
-                _customerRepository.Create(customer);
+            //if (ModelState.IsValid)
+            //{
+                _customerRepository.Add(customer);
                 return RedirectToAction(nameof(Index));
-            }
-            return View(customer);
+            //}
+
+            //return View(customer);
         }
 
         // GET: Customers/Edit/5
@@ -90,11 +91,11 @@ namespace Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 _customerRepository.Update(customer);
-                return RedirectToAction(nameof(Index));
-            }
+                //return RedirectToAction(nameof(Index));
+            //}
 
             return View(customer);
         }
@@ -120,12 +121,13 @@ namespace Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            if (!_customerRepository.Exists(id))
+            var customer = _customerRepository.GetById(id);
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            _customerRepository.Delete(id);
+            _customerRepository.Remove(customer);
             return RedirectToAction(nameof(Index));
         }
     }
