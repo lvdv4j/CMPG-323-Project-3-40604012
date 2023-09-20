@@ -16,6 +16,7 @@ namespace Controllers
     public class ProductsController : Controller
     {
         private readonly IProductService _productService;
+
         public ProductsController(IProductService productService)
         {
             _productService = productService;
@@ -24,6 +25,7 @@ namespace Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
+            // Display a list of all products.
             return View(_productService.GetAllProducts().ToList());
         }
 
@@ -35,6 +37,7 @@ namespace Controllers
                 return NotFound();
             }
 
+            // Retrieve product details by ID for viewing.
             var product = _productService.GetProductById(id);
 
             if (product == null)
@@ -48,16 +51,16 @@ namespace Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
+            // Display a form to create a new product.
             return View();
         }
 
         // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,ProductName,ProductDescription,UnitsInStock")] Product product)
         {
+            // Create a new product.
             _productService.AddProduct(product);
             return RedirectToAction(nameof(Index));
         }
@@ -70,6 +73,7 @@ namespace Controllers
                 return NotFound();
             }
 
+            // Retrieve product details by ID for editing.
             var product = _productService.GetProductById(id);
 
             if (product == null)
@@ -80,8 +84,6 @@ namespace Controllers
         }
 
         // POST: Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(short id, [Bind("ProductId,ProductName,ProductDescription,UnitsInStock")] Product product)
@@ -93,6 +95,7 @@ namespace Controllers
 
             try
             {
+                // Update product details.
                 _productService.UpdateProduct(product);
             }
             catch (DbUpdateConcurrencyException)
@@ -117,6 +120,7 @@ namespace Controllers
                 return NotFound();
             }
 
+            // Retrieve product details by ID for deletion confirmation.
             var product = _productService.GetProductById(id);
 
             if (product == null)
@@ -132,6 +136,7 @@ namespace Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(short id)
         {
+            // Delete a product.
             var product = _productService.GetProductById(id);
             if (product != null)
             {

@@ -24,6 +24,7 @@ namespace Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
+            // Display a list of all customers.
             return View(_customerService.GetAllCustomers().ToList());
         }
 
@@ -35,6 +36,7 @@ namespace Controllers
                 return NotFound();
             }
 
+            // Retrieve customer details by ID.
             var customer = _customerService.GetCustomerById(id);
 
             if (customer == null)
@@ -48,16 +50,16 @@ namespace Controllers
         // GET: Customers/Create
         public IActionResult Create()
         {
+            // Display a form to create a new customer.
             return View();
         }
 
         // POST: Customers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CustomerId,CustomerTitle,CustomerName,CustomerSurname,CellPhone")] Customer customer)
         {
+            // Create a new customer.
             _customerService.AddCustomer(customer);
             return RedirectToAction(nameof(Index));
         }
@@ -70,18 +72,18 @@ namespace Controllers
                 return NotFound();
             }
 
+            // Retrieve customer details for editing.
             var customer = _customerService.GetCustomerById(id);
 
             if (customer == null)
             {
                 return NotFound();
             }
+
             return View(customer);
         }
 
         // POST: Customers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(short id, [Bind("CustomerId,CustomerTitle,CustomerName,CustomerSurname,CellPhone")] Customer customer)
@@ -93,6 +95,7 @@ namespace Controllers
 
             try
             {
+                // Update customer details.
                 _customerService.UpdateCustomer(customer);
             }
             catch (DbUpdateConcurrencyException)
@@ -117,6 +120,7 @@ namespace Controllers
                 return NotFound();
             }
 
+            // Retrieve customer details for deletion confirmation.
             var customer = _customerService.GetCustomerById(id);
 
             if (customer == null)
@@ -132,6 +136,7 @@ namespace Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(short id)
         {
+            // Delete a customer.
             var customer = _customerService.GetCustomerById(id);
             if (customer != null)
             {

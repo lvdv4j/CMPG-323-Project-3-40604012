@@ -13,6 +13,7 @@ namespace EcoPower_Logistics.Repository
             _context = context;
         }
 
+        // Get all entities of type T.
         public IEnumerable<T> GetAll()
         {
             try
@@ -25,11 +26,13 @@ namespace EcoPower_Logistics.Repository
             }
         }
 
+        // Get an entity of type T by its ID.
         public T GetById(short id)
         {
             return _context.Set<T>().Find(id);
         }
 
+        // Add a new entity of type T.
         public void Add(T entity)
         {
             if (entity == null)
@@ -47,6 +50,7 @@ namespace EcoPower_Logistics.Repository
             }
         }
 
+        // Update an existing entity of type T.
         public void Update(T entity)
         {
             if (entity == null)
@@ -64,6 +68,7 @@ namespace EcoPower_Logistics.Repository
             }
         }
 
+        // Remove an entity of type T.
         public void Remove(T entity)
         {
             try

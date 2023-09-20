@@ -27,6 +27,7 @@ namespace Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
+            // Display a list of all orders with customer information.
             ViewData["CustomerId"] = new SelectList(_customerService.GetAllCustomers(), "CustomerId", "CustomerId");
             return View(_orderService.GetAllOrders().ToList());
         }
@@ -39,6 +40,7 @@ namespace Controllers
                 return NotFound();
             }
 
+            // Retrieve order details by ID for viewing, including customer information.
             ViewData["CustomerId"] = new SelectList(_customerService.GetAllCustomers(), "CustomerId", "CustomerId");
             var order = _orderService.GetOrderById(id);
 
@@ -53,17 +55,17 @@ namespace Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
+            // Display a form to create a new order.
             ViewData["CustomerId"] = new SelectList(_customerService.GetAllCustomers(), "CustomerId", "CustomerId");
             return View();
         }
 
         // POST: Orders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OrderId,OrderDate,CustomerId,DeliveryAddress")] Order order)
         {
+            // Create a new order.
             _orderService.AddOrder(order);
             return RedirectToAction("Index");
         }
@@ -76,6 +78,7 @@ namespace Controllers
                 return NotFound();
             }
 
+            // Retrieve order details by ID for editing, including customer information.
             var order = _orderService.GetOrderById(id);
 
             if (order == null)
@@ -88,8 +91,6 @@ namespace Controllers
         }
 
         // POST: Orders/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(short id, [Bind("OrderId,OrderDate,CustomerId,DeliveryAddress")] Order order)
@@ -101,6 +102,7 @@ namespace Controllers
 
             try
             {
+                // Update order details.
                 _orderService.UpdateOrder(order);
             }
             catch (DbUpdateConcurrencyException)
@@ -125,6 +127,7 @@ namespace Controllers
                 return NotFound();
             }
 
+            // Retrieve order details by ID for deletion confirmation, including customer information.
             ViewData["CustomerId"] = new SelectList(_customerService.GetAllCustomers(), "CustomerId", "CustomerId");
             var order = _orderService.GetOrderById(id);
 
@@ -141,6 +144,7 @@ namespace Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(short id)
         {
+            // Delete an order.
             var order = _orderService.GetOrderById(id);
             _orderService.RemoveOrder(order);
             return RedirectToAction("Index");

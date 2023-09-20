@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Data;
 using Models;
 using EcoPower_Logistics.Services;
 
@@ -29,6 +28,7 @@ namespace Controllers
         // GET: OrderDetails
         public async Task<IActionResult> Index()
         {
+            // Display a list of all order details.
             var orderDetails = _orderDetailsService.GetAllOrderDetails();
             return View(orderDetails);
         }
@@ -41,6 +41,7 @@ namespace Controllers
                 return NotFound();
             }
 
+            // Retrieve order detail by ID for viewing.
             var orderDetail = _orderDetailsService.GetOrderDetailById(id);
 
             if (orderDetail == null)
@@ -54,18 +55,18 @@ namespace Controllers
         // GET: OrderDetails/Create
         public IActionResult Create()
         {
+            // Display a form to create a new order detail.
             ViewData["OrderId"] = new SelectList(_orderService.GetAllOrders(), "OrderId", "OrderId");
             ViewData["ProductId"] = new SelectList(_productService.GetAllProducts(), "ProductId", "ProductId");
             return View();
         }
 
         // POST: OrderDetails/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OrderDetailsId,OrderId,ProductId,Quantity,Discount")] OrderDetail orderDetail)
         {
+            // Create a new order detail.
             if (ModelState.IsValid)
             {
                 _orderDetailsService.AddOrderDetail(orderDetail);
@@ -85,6 +86,7 @@ namespace Controllers
                 return NotFound();
             }
 
+            // Retrieve order detail by ID for editing.
             var orderDetail = _orderDetailsService.GetOrderDetailById(id);
 
             if (orderDetail == null)
@@ -98,8 +100,6 @@ namespace Controllers
         }
 
         // POST: OrderDetails/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(short id, [Bind("OrderDetailsId,OrderId,ProductId,Quantity,Discount")] OrderDetail orderDetail)
@@ -109,6 +109,7 @@ namespace Controllers
                 return NotFound();
             }
 
+            // Update order detail.
             if (ModelState.IsValid)
             {
                 try
@@ -142,6 +143,7 @@ namespace Controllers
                 return NotFound();
             }
 
+            // Retrieve order detail by ID for deletion confirmation.
             var orderDetail = _orderDetailsService.GetOrderDetailById(id);
 
             if (orderDetail == null)
@@ -157,6 +159,7 @@ namespace Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(short id)
         {
+            // Delete an order detail.
             var orderDetail = _orderDetailsService.GetOrderDetailById(id);
 
             if (orderDetail != null)
