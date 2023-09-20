@@ -12,7 +12,7 @@ namespace EcoPower_Logistics.Services
             _orderRepository = orderRepository;
         }
 
-        public Order GetOrderById(int? id)
+        public Order GetOrderById(short? id)
         {
             return _orderRepository.GetOrderById(id);
         }

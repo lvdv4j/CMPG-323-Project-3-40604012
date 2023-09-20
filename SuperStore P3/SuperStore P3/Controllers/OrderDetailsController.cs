@@ -29,7 +29,7 @@ namespace Controllers
         }
 
         // GET: OrderDetails/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(short? id)
         {
             if (id == null || _context.OrderDetails == null)
             {
@@ -75,7 +75,7 @@ namespace Controllers
         }
 
         // GET: OrderDetails/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(short? id)
         {
             if (id == null || _context.OrderDetails == null)
             {
@@ -97,7 +97,7 @@ namespace Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderDetailsId,OrderId,ProductId,Quantity,Discount")] OrderDetail orderDetail)
+        public async Task<IActionResult> Edit(short id, [Bind("OrderDetailsId,OrderId,ProductId,Quantity,Discount")] OrderDetail orderDetail)
         {
             if (id != orderDetail.OrderDetailsId)
             {
@@ -130,7 +130,7 @@ namespace Controllers
         }
 
         // GET: OrderDetails/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(short? id)
         {
             if (id == null || _context.OrderDetails == null)
             {
@@ -152,7 +152,7 @@ namespace Controllers
         // POST: OrderDetails/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(short id)
         {
             if (_context.OrderDetails == null)
             {
@@ -168,7 +168,7 @@ namespace Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool OrderDetailExists(int id)
+        private bool OrderDetailExists(short id)
         {
             return (_context.OrderDetails?.Any(e => e.OrderDetailsId == id)).GetValueOrDefault();
         }

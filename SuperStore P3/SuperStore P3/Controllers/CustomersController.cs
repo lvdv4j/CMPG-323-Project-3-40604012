@@ -6,38 +6,37 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Data;
 using Models;
-using EcoPower_Logistics.Repository;
+using EcoPower_Logistics.Services;
 
 namespace Controllers
 {
     [Authorize]
     public class CustomersController : Controller
     {
-        private readonly ICustomerRepository _customerRepository;
+        private readonly ICustomerService _customerService;
 
-        public CustomersController(ICustomerRepository customerRepository)
+        public CustomersController(ICustomerService customerService)
         {
-            _customerRepository = customerRepository;
+            _customerService = customerService;
         }
 
         // GET: Customers
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var customers = _customerRepository.GetAll();
-            return View(customers);
+            return View(_customerService.GetAllCustomers().ToList());
         }
 
         // GET: Customers/Details/5
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(short? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var customer = _customerRepository.GetById(id.Value);
+            var customer = _customerService.GetCustomerById(id);
+
             if (customer == null)
             {
                 return NotFound();
@@ -52,63 +51,74 @@ namespace Controllers
             return View();
         }
 
+        // POST: Customers/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Customer customer)
+        public async Task<IActionResult> Create([Bind("CustomerId,CustomerTitle,CustomerName,CustomerSurname,CellPhone")] Customer customer)
         {
-            //if (ModelState.IsValid)
-            //{
-                _customerRepository.Add(customer);
-                return RedirectToAction(nameof(Index));
-            //}
-
-            //return View(customer);
+            _customerService.AddCustomer(customer);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Customers/Edit/5
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(short? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var customer = _customerRepository.GetById(id.Value);
+            var customer = _customerService.GetCustomerById(id);
+
             if (customer == null)
             {
                 return NotFound();
             }
-
             return View(customer);
         }
 
+        // POST: Customers/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Customer customer)
+        public async Task<IActionResult> Edit(short id, [Bind("CustomerId,CustomerTitle,CustomerName,CustomerSurname,CellPhone")] Customer customer)
         {
             if (id != customer.CustomerId)
             {
                 return NotFound();
             }
 
-            //if (ModelState.IsValid)
-            //{
-                _customerRepository.Update(customer);
-                //return RedirectToAction(nameof(Index));
-            //}
-
-            return View(customer);
+            try
+            {
+                _customerService.UpdateCustomer(customer);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CustomerExists(customer.CustomerId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Customers/Delete/5
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(short? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var customer = _customerRepository.GetById(id.Value);
+            var customer = _customerService.GetCustomerById(id);
+
             if (customer == null)
             {
                 return NotFound();
@@ -117,18 +127,23 @@ namespace Controllers
             return View(customer);
         }
 
+        // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(short id)
         {
-            var customer = _customerRepository.GetById(id);
-            if (customer == null)
+            var customer = _customerService.GetCustomerById(id);
+            if (customer != null)
             {
-                return NotFound();
+                _customerService.RemoveCustomer(customer);
             }
 
-            _customerRepository.Remove(customer);
             return RedirectToAction(nameof(Index));
+        }
+
+        private bool CustomerExists(short id)
+        {
+            return _customerService.GetCustomerById(id) != null;
         }
     }
 }
