@@ -157,7 +157,7 @@ Here you can perform various functions:
 
 ## References
 The following list of references were used to complete this project: 
-
+[Project3References.xlsx](https://github.com/lvdv4j/CMPG-323-Project-3-40604012/files/12679668/Project3References.xlsx)
 
 ## Stretch Tasks
 The following stretch tasks were done for the project:
