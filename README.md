@@ -1,5 +1,5 @@
 # CMPG-323-Project-3-40604012
-This Restful web application project made for EcoPower Logistics ensures that the best practices are implemented in code, making use of the repository pattern to ensure code reuse.
+This web application project made for EcoPower Logistics ensures that the best practices are implemented in code, making use of the repository pattern to ensure code reuse.
 
 ## How to use this Restful API project:
 This Web application can either be used by cloning the main repository, however this is not recommended since the appsettings.json file and thus the connection string to the database will not be accessible to the stakeholders. The wwwroot file will also not be included. If the stakeholder has access to the appsettings.json file as well as the wwwroot folder they can use this method, however it is recomended that they alternativly access the Web App being hosted on Azure at [this URL](https://ecopowerlogisticswebapplication.azurewebsites.net). (This will only be accessible by approved users within the resource group in which this App Service is being hosted.)
