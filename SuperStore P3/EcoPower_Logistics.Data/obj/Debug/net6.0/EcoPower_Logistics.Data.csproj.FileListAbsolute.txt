@@ -1,0 +1,14 @@
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Data\bin\Debug\net6.0\EcoPower_Logistics.Data.deps.json
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Data\bin\Debug\net6.0\EcoPower_Logistics.Data.runtimeconfig.json
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Data\bin\Debug\net6.0\EcoPower_Logistics.Data.dll
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Data\bin\Debug\net6.0\EcoPower_Logistics.Data.pdb
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Data\obj\Debug\net6.0\EcoPower_Logistics.Data.csproj.AssemblyReference.cache
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Data\obj\Debug\net6.0\EcoPower_Logistics.Data.GeneratedMSBuildEditorConfig.editorconfig
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Data\obj\Debug\net6.0\EcoPower_Logistics.Data.AssemblyInfoInputs.cache
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Data\obj\Debug\net6.0\EcoPower_Logistics.Data.AssemblyInfo.cs
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Data\obj\Debug\net6.0\EcoPower_Logistics.Data.csproj.CoreCompileInputs.cache
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Data\obj\Debug\net6.0\EcoPower_Logistics.Data.dll
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Data\obj\Debug\net6.0\refint\EcoPower_Logistics.Data.dll
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Data\obj\Debug\net6.0\EcoPower_Logistics.Data.pdb
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Data\obj\Debug\net6.0\EcoPower_Logistics.Data.genruntimeconfig.cache
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Data\obj\Debug\net6.0\ref\EcoPower_Logistics.Data.dll
