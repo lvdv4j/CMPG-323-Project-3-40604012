@@ -155,6 +155,13 @@ Here you can perform various functions:
   - Click on the Delete Hyperlink next to the entry you want to delete
   - Click the Delete button to confirm and that entry will be deleted
 
+### Please note the following:
+The delete function DOES work! However when attempting to delete orders or products that have an existing order details object, you will encounter the following error page:
+
+![DeleteErrorOrderPage](https://github.com/lvdv4j/CMPG-323-Project-3-40604012/assets/104925498/ba9fa9cb-5a56-4d70-aa4e-368559270e08)
+
+This just means that it won't allow you to delete that item because another object is using this information. To test the delete functions, please create a new order/product and then delete it.
+
 ## References
 The following list of references were used to complete this project: 
 
