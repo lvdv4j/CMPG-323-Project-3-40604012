@@ -164,4 +164,7 @@ The following list of references were used to complete this project:
 The following stretch tasks were done for the project:
 - Splitting the implementation of the design pattern between projects: This took me a really long time to do after the base project was completed. Trying to implement this resulted in numerous errors, however I managed to resolve them all and achieved this implementation before the project milestone due date.
 
+## Updates
+Please note that my burndown chart has been updated in my overview repository.
+
 
