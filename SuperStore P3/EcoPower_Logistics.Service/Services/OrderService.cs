@@ -15,7 +15,7 @@ namespace EcoPower_Logistics.Service.Services
         }
 
         // Get an order by its ID.
-        public Order GetOrderById(short? id)
+        public Order GetOrderById(int? id)
         {
             // Calls the GetOrderById method from the injected IOrderRepository.
             return _orderRepository.GetOrderById(id);

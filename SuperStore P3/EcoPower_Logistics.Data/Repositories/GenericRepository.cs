@@ -25,7 +25,7 @@ namespace EcoPower_Logistics.Data.Repositories
         }
 
         // Get an entity of type T by its ID.
-        public T GetById(short id)
+        public T GetById(int id)
         {
             return _context.Set<T>().Find(id);
         }

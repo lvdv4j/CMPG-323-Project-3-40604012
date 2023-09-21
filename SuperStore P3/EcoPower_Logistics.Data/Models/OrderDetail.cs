@@ -7,11 +7,11 @@ namespace EcoPower_Logistics.Data.Models
     public partial class OrderDetail
     {
         [DisplayName("Order Details ID")]
-        public short OrderDetailsId { get; set; }
+        public int OrderDetailsId { get; set; }
         [DisplayName("Order ID")]
-        public short OrderId { get; set; }
+        public int OrderId { get; set; }
         [DisplayName("Product ID")]
-        public short ProductId { get; set; }
+        public int ProductId { get; set; }
         [DisplayName("Quantity")]
         public int Quantity { get; set; }
         [DisplayName("Discount")]

@@ -12,7 +12,7 @@ namespace EcoPower_Logistics.Data.Repositories
         }
 
         // Get an order by its ID.
-        public Order GetOrderById(short? id)
+        public Order GetOrderById(int? id)
         {
             // Calls the inherited GetById method to retrieve an order by ID.
             return GetById(id.Value);

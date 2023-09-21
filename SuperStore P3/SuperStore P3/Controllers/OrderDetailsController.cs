@@ -34,7 +34,7 @@ namespace Controllers
         }
 
         // GET: OrderDetails/Details/5
-        public async Task<IActionResult> Details(short? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -79,7 +79,7 @@ namespace Controllers
         }
 
         // GET: OrderDetails/Edit/5
-        public async Task<IActionResult> Edit(short? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -102,7 +102,7 @@ namespace Controllers
         // POST: OrderDetails/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(short id, [Bind("OrderDetailsId,OrderId,ProductId,Quantity,Discount")] OrderDetail orderDetail)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderDetailsId,OrderId,ProductId,Quantity,Discount")] OrderDetail orderDetail)
         {
             if (id != orderDetail.OrderDetailsId)
             {
@@ -136,7 +136,7 @@ namespace Controllers
         }
 
         // GET: OrderDetails/Delete/5
-        public async Task<IActionResult> Delete(short? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -157,7 +157,7 @@ namespace Controllers
         // POST: OrderDetails/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(short id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             // Delete an order detail.
             var orderDetail = _orderDetailsService.GetOrderDetailById(id);
@@ -170,7 +170,7 @@ namespace Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool OrderDetailExists(short id)
+        private bool OrderDetailExists(int id)
         {
             return _orderDetailsService.GetOrderDetailById(id) != null;
         }

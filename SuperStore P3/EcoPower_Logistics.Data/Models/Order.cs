@@ -12,11 +12,11 @@ namespace EcoPower_Logistics.Data.Models
         }
 
         [DisplayName("Order ID")]
-        public short OrderId { get; set; }
+        public int OrderId { get; set; }
         [DisplayName("Order Date")]
         public DateTime OrderDate { get; set; }
         [DisplayName("Customer ID")]
-        public short CustomerId { get; set; }
+        public int CustomerId { get; set; }
         [DisplayName("Delivery Address")]
         public string? DeliveryAddress { get; set; }
 

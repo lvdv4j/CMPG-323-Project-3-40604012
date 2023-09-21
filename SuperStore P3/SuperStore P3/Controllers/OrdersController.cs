@@ -32,7 +32,7 @@ namespace Controllers
         }
 
         // GET: Orders/Details/5
-        public async Task<IActionResult> Details(short? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -70,7 +70,7 @@ namespace Controllers
         }
 
         // GET: Orders/Edit/5
-        public async Task<IActionResult> Edit(short? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -92,7 +92,7 @@ namespace Controllers
         // POST: Orders/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(short id, [Bind("OrderId,OrderDate,CustomerId,DeliveryAddress")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,OrderDate,CustomerId,DeliveryAddress")] Order order)
         {
             if (id != order.OrderId)
             {
@@ -119,7 +119,7 @@ namespace Controllers
         }
 
         // GET: Orders/Delete/5
-        public async Task<IActionResult> Delete(short? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -141,7 +141,7 @@ namespace Controllers
         // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(short id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             // Delete an order.
             var order = _orderService.GetOrderById(id);
@@ -149,7 +149,7 @@ namespace Controllers
             return RedirectToAction("Index");
         }
 
-        private bool OrderExists(short id)
+        private bool OrderExists(int id)
         {
             return _orderService.GetOrderById(id) != null;
         }

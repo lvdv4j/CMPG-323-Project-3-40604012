@@ -15,7 +15,7 @@ namespace EcoPower_Logistics.Data.Repositories
         }
 
         // Get a product by its ID.
-        public Product GetProductById(short? id)
+        public Product GetProductById(int? id)
         {
             // Calls the inherited GetById method to retrieve a product by ID.
             return GetById(id.Value);

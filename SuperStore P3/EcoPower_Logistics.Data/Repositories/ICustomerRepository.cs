@@ -4,7 +4,7 @@ namespace EcoPower_Logistics.Data.Repositories
 {
     public interface ICustomerRepository : IGenericRepository<Customer>
     {
-        Customer GetCustomerById(short? id);
+        Customer GetCustomerById(int? id);
         IEnumerable<Customer> GetAllCustomer();
         void AddCustomer(Customer entity);
         void UpdateCustomer(Customer entity);

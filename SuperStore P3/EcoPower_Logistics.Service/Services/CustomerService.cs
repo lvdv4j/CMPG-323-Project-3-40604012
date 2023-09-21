@@ -15,7 +15,7 @@ namespace EcoPower_Logistics.Service.Services
         }
 
         // Get a customer by their ID.
-        public Customer GetCustomerById(short? id)
+        public Customer GetCustomerById(int? id)
         {
             // Calls the GetCustomerById method from the injected ICustomerRepository.
             return _customerRepository.GetCustomerById(id);

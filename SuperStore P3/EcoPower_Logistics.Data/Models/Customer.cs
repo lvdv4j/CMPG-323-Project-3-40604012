@@ -12,7 +12,7 @@ namespace EcoPower_Logistics.Data.Models
         }
 
         [DisplayName("Customer ID")]
-        public short CustomerId { get; set; }
+        public int CustomerId { get; set; }
         [DisplayName("Customer Title")]
         public string? CustomerTitle { get; set; }
         [DisplayName("Customer Name")]

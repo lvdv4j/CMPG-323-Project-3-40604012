@@ -15,7 +15,7 @@ namespace EcoPower_Logistics.Service.Services
         }
 
         // Get a product by its ID.
-        public Product GetProductById(short? id)
+        public Product GetProductById(int? id)
         {
             // Calls the GetProductById method from the injected IProductRepository.
             return _productRepository.GetProductById(id);

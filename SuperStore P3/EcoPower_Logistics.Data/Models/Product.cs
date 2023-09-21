@@ -12,7 +12,7 @@ namespace EcoPower_Logistics.Data.Models
         }
 
         [DisplayName("Product ID")]
-        public short ProductId { get; set; }
+        public int ProductId { get; set; }
         [DisplayName("Product Name")]
         public string ProductName { get; set; } = null!;
         [DisplayName("Product Description")]

@@ -11,7 +11,7 @@ namespace EcoPower_Logistics.Data.Repositories
         }
 
         // Get a customer by their ID.
-        public Customer GetCustomerById(short? id)
+        public Customer GetCustomerById(int? id)
         {
             // Calls the inherited GetById method to retrieve a customer by ID.
             return GetById(id.Value);
