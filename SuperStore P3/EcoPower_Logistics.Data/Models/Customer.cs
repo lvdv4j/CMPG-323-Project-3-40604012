@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Models
+namespace EcoPower_Logistics.Data.Models
 {
     public partial class Customer
     {

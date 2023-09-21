@@ -6,40 +6,44 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Data;
-using Models;
+using EcoPower_Logistics.Data.Models;
+using EcoPower_Logistics.Service.Services;
 
 namespace Controllers
 {
     [Authorize]
     public class OrderDetailsController : Controller
     {
-        private readonly SuperStoreContext _context;
+        private readonly IOrderService _orderService;
+        private readonly IProductService _productService;
+        private readonly IOrderDetailsService _orderDetailsService;
 
-        public OrderDetailsController(SuperStoreContext context)
+        public OrderDetailsController(IOrderService orderService, IProductService productService, IOrderDetailsService orderDetailsService)
         {
-            _context = context;
+            _orderService = orderService;
+            _productService = productService;
+            _orderDetailsService = orderDetailsService;
         }
 
         // GET: OrderDetails
         public async Task<IActionResult> Index()
         {
-            var superStoreContext = _context.OrderDetails.Include(o => o.Order).Include(o => o.Product);
-            return View(await superStoreContext.ToListAsync());
+            // Display a list of all order details.
+            var orderDetails = _orderDetailsService.GetAllOrderDetails();
+            return View(orderDetails);
         }
 
         // GET: OrderDetails/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.OrderDetails == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var orderDetail = await _context.OrderDetails
-                .Include(o => o.Order)
-                .Include(o => o.Product)
-                .FirstOrDefaultAsync(m => m.OrderDetailsId == id);
+            // Retrieve order detail by ID for viewing.
+            var orderDetail = _orderDetailsService.GetOrderDetailById(id);
+
             if (orderDetail == null)
             {
                 return NotFound();
@@ -51,50 +55,51 @@ namespace Controllers
         // GET: OrderDetails/Create
         public IActionResult Create()
         {
-            ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId");
-            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductId");
+            // Display a form to create a new order detail.
+            ViewData["OrderId"] = new SelectList(_orderService.GetAllOrders(), "OrderId", "OrderId");
+            ViewData["ProductId"] = new SelectList(_productService.GetAllProducts(), "ProductId", "ProductId");
             return View();
         }
 
         // POST: OrderDetails/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OrderDetailsId,OrderId,ProductId,Quantity,Discount")] OrderDetail orderDetail)
         {
+            // Create a new order detail.
             if (ModelState.IsValid)
             {
-                _context.Add(orderDetail);
-                await _context.SaveChangesAsync();
+                _orderDetailsService.AddOrderDetail(orderDetail);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId", orderDetail.OrderId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductId", orderDetail.ProductId);
+
+            ViewData["OrderId"] = new SelectList(_orderService.GetAllOrders(), "OrderId", "OrderId", orderDetail.OrderId);
+            ViewData["ProductId"] = new SelectList(_productService.GetAllProducts(), "ProductId", "ProductId", orderDetail.ProductId);
             return View(orderDetail);
         }
 
         // GET: OrderDetails/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.OrderDetails == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var orderDetail = await _context.OrderDetails.FindAsync(id);
+            // Retrieve order detail by ID for editing.
+            var orderDetail = _orderDetailsService.GetOrderDetailById(id);
+
             if (orderDetail == null)
             {
                 return NotFound();
             }
-            ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId", orderDetail.OrderId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductId", orderDetail.ProductId);
+
+            ViewData["OrderId"] = new SelectList(_orderService.GetAllOrders(), "OrderId", "OrderId", orderDetail.OrderId);
+            ViewData["ProductId"] = new SelectList(_productService.GetAllProducts(), "ProductId", "ProductId", orderDetail.ProductId);
             return View(orderDetail);
         }
 
         // POST: OrderDetails/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("OrderDetailsId,OrderId,ProductId,Quantity,Discount")] OrderDetail orderDetail)
@@ -104,14 +109,14 @@ namespace Controllers
                 return NotFound();
             }
 
+            // Update order detail.
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(orderDetail);
-                    await _context.SaveChangesAsync();
+                    _orderDetailsService.UpdateOrderDetail(orderDetail);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch
                 {
                     if (!OrderDetailExists(orderDetail.OrderDetailsId))
                     {
@@ -124,23 +129,23 @@ namespace Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrderId"] = new SelectList(_context.Orders, "OrderId", "OrderId", orderDetail.OrderId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductId", orderDetail.ProductId);
+
+            ViewData["OrderId"] = new SelectList(_orderService.GetAllOrders(), "OrderId", "OrderId", orderDetail.OrderId);
+            ViewData["ProductId"] = new SelectList(_productService.GetAllProducts(), "ProductId", "ProductId", orderDetail.ProductId);
             return View(orderDetail);
         }
 
         // GET: OrderDetails/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.OrderDetails == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var orderDetail = await _context.OrderDetails
-                .Include(o => o.Order)
-                .Include(o => o.Product)
-                .FirstOrDefaultAsync(m => m.OrderDetailsId == id);
+            // Retrieve order detail by ID for deletion confirmation.
+            var orderDetail = _orderDetailsService.GetOrderDetailById(id);
+
             if (orderDetail == null)
             {
                 return NotFound();
@@ -154,23 +159,20 @@ namespace Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.OrderDetails == null)
-            {
-                return Problem("Entity set 'SuperStoreContext.OrderDetails'  is null.");
-            }
-            var orderDetail = await _context.OrderDetails.FindAsync(id);
+            // Delete an order detail.
+            var orderDetail = _orderDetailsService.GetOrderDetailById(id);
+
             if (orderDetail != null)
             {
-                _context.OrderDetails.Remove(orderDetail);
+                _orderDetailsService.RemoveOrderDetail(orderDetail);
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool OrderDetailExists(int id)
         {
-            return (_context.OrderDetails?.Any(e => e.OrderDetailsId == id)).GetValueOrDefault();
+            return _orderDetailsService.GetOrderDetailById(id) != null;
         }
     }
 }

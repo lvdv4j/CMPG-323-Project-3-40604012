@@ -7,38 +7,39 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Data;
-using Models;
+using EcoPower_Logistics.Service.Services;
+using EcoPower_Logistics.Data.Models;
 
 namespace Controllers
 {
     [Authorize]
     public class ProductsController : Controller
     {
-        private readonly SuperStoreContext _context;
+        private readonly IProductService _productService;
 
-        public ProductsController(SuperStoreContext context)
+        public ProductsController(IProductService productService)
         {
-            _context = context;
+            _productService = productService;
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return _context.Products != null ?
-                        View(await _context.Products.ToListAsync()) :
-                        Problem("Entity set 'SuperStoreContext.Products'  is null.");
+            // Display a list of all products.
+            return View(_productService.GetAllProducts().ToList());
         }
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+            // Retrieve product details by ID for viewing.
+            var product = _productService.GetProductById(id);
+
             if (product == null)
             {
                 return NotFound();
@@ -50,34 +51,31 @@ namespace Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
+            // Display a form to create a new product.
             return View();
         }
 
         // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,ProductName,ProductDescription,UnitsInStock")] Product product)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(product);
+            // Create a new product.
+            _productService.AddProduct(product);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            // Retrieve product details by ID for editing.
+            var product = _productService.GetProductById(id);
+
             if (product == null)
             {
                 return NotFound();
@@ -86,8 +84,6 @@ namespace Controllers
         }
 
         // POST: Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ProductDescription,UnitsInStock")] Product product)
@@ -97,39 +93,36 @@ namespace Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductExists(product.ProductId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                // Update product details.
+                _productService.UpdateProduct(product);
             }
-            return View(product);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ProductExists(product.ProductId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+            // Retrieve product details by ID for deletion confirmation.
+            var product = _productService.GetProductById(id);
+
             if (product == null)
             {
                 return NotFound();
@@ -143,23 +136,19 @@ namespace Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Products == null)
-            {
-                return Problem("Entity set 'SuperStoreContext.Products'  is null.");
-            }
-            var product = await _context.Products.FindAsync(id);
+            // Delete a product.
+            var product = _productService.GetProductById(id);
             if (product != null)
             {
-                _context.Products.Remove(product);
+                _productService.RemoveProduct(product);
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProductExists(int id)
         {
-            return (_context.Products?.Any(e => e.ProductId == id)).GetValueOrDefault();
+            return _productService.GetProductById(id) != null;
         }
     }
 }

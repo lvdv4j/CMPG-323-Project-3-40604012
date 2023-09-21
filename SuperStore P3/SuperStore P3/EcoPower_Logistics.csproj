@@ -21,7 +21,12 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.21" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.15" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EcoPower_Logistics.Data\EcoPower_Logistics.Data.csproj" />
+    <ProjectReference Include="..\EcoPower_Logistics.Service\EcoPower_Logistics.Service.csproj" />
   </ItemGroup>
 
 </Project>

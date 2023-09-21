@@ -1,0 +1,15 @@
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Service\bin\Debug\net6.0\EcoPower_Logistics.Service.deps.json
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Service\bin\Debug\net6.0\EcoPower_Logistics.Service.dll
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Service\bin\Debug\net6.0\EcoPower_Logistics.Service.pdb
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Service\bin\Debug\net6.0\EcoPower_Logistics.Data.dll
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Service\bin\Debug\net6.0\EcoPower_Logistics.Data.pdb
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Service\obj\Debug\net6.0\EcoPower_Logistics.Service.csproj.AssemblyReference.cache
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Service\obj\Debug\net6.0\EcoPower_Logistics.Service.GeneratedMSBuildEditorConfig.editorconfig
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Service\obj\Debug\net6.0\EcoPower_Logistics.Service.AssemblyInfoInputs.cache
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Service\obj\Debug\net6.0\EcoPower_Logistics.Service.AssemblyInfo.cs
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Service\obj\Debug\net6.0\EcoPower_Logistics.Service.csproj.CoreCompileInputs.cache
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Service\obj\Debug\net6.0\EcoPower_Logistics.Service.csproj.CopyComplete
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Service\obj\Debug\net6.0\EcoPower_Logistics.Service.dll
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Service\obj\Debug\net6.0\refint\EcoPower_Logistics.Service.dll
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Service\obj\Debug\net6.0\EcoPower_Logistics.Service.pdb
+G:\1_3rd_year_uni\Visual_Studio\CMPG323Project3\SuperStore P3\EcoPower_Logistics.Service\obj\Debug\net6.0\ref\EcoPower_Logistics.Service.dll

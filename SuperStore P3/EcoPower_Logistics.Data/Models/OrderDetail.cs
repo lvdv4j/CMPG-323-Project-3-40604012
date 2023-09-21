@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Models
+namespace EcoPower_Logistics.Data.Models
 {
     public partial class OrderDetail
     {
@@ -15,7 +15,7 @@ namespace Models
         [DisplayName("Quantity")]
         public int Quantity { get; set; }
         [DisplayName("Discount")]
-        public double? Discount { get; set; }
+        public int? Discount { get; set; }
 
         public virtual Order Order { get; set; } = null!;
         public virtual Product Product { get; set; } = null!;
