@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Data;
-using EcoPower_Logistics.Repository;
-using EcoPower_Logistics.Services;
+using EcoPower_Logistics.Data.Data;
+using EcoPower_Logistics.Data.Repositories;
+using EcoPower_Logistics.Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

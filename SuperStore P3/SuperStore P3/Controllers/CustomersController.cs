@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EcoPower_Logistics.Service.Services;
+using EcoPower_Logistics.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Models;
-using EcoPower_Logistics.Services;
 
 namespace Controllers
 {
@@ -29,7 +29,7 @@ namespace Controllers
         }
 
         // GET: Customers/Details/5
-        public async Task<IActionResult> Details(short? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -65,7 +65,7 @@ namespace Controllers
         }
 
         // GET: Customers/Edit/5
-        public async Task<IActionResult> Edit(short? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -86,7 +86,7 @@ namespace Controllers
         // POST: Customers/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(short id, [Bind("CustomerId,CustomerTitle,CustomerName,CustomerSurname,CellPhone")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("CustomerId,CustomerTitle,CustomerName,CustomerSurname,CellPhone")] Customer customer)
         {
             if (id != customer.CustomerId)
             {
@@ -113,7 +113,7 @@ namespace Controllers
         }
 
         // GET: Customers/Delete/5
-        public async Task<IActionResult> Delete(short? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -134,7 +134,7 @@ namespace Controllers
         // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(short id)
+        public IActionResult DeleteConfirmed(int id)
         {
             // Delete a customer.
             var customer = _customerService.GetCustomerById(id);
@@ -146,7 +146,7 @@ namespace Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CustomerExists(short id)
+        private bool CustomerExists(int id)
         {
             return _customerService.GetCustomerById(id) != null;
         }

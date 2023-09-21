@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Data;
-using Models;
-using EcoPower_Logistics.Services;
+using EcoPower_Logistics.Service.Services;
+using EcoPower_Logistics.Data.Models;
 
 namespace Controllers
 {
@@ -30,7 +30,7 @@ namespace Controllers
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(short? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -66,7 +66,7 @@ namespace Controllers
         }
 
         // GET: Products/Edit/5
-        public async Task<IActionResult> Edit(short? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -86,7 +86,7 @@ namespace Controllers
         // POST: Products/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(short id, [Bind("ProductId,ProductName,ProductDescription,UnitsInStock")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ProductDescription,UnitsInStock")] Product product)
         {
             if (id != product.ProductId)
             {
@@ -113,7 +113,7 @@ namespace Controllers
         }
 
         // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(short? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -134,7 +134,7 @@ namespace Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(short id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             // Delete a product.
             var product = _productService.GetProductById(id);
@@ -146,7 +146,7 @@ namespace Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(short id)
+        private bool ProductExists(int id)
         {
             return _productService.GetProductById(id) != null;
         }
